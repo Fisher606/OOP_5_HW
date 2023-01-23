@@ -1,7 +1,7 @@
-package Controllers;
+package controllers;
 
-import Model.Repository;
-import Model.User;
+import model.Repository;
+import model.User;
 
 import java.util.List;
 
@@ -12,18 +12,40 @@ public class UserController {
         this.repository = repository;
     }
 
-    public void saveUser(User user) {
+    public void saveUser(User user) throws Exception {
+        validateUser(user);
         repository.CreateUser(user);
     }
 
     public User readUser(String userId) throws Exception {
-        List<User> users = repository.getAllUsers();
-        for (User user : users) {
-            if (user.getId().equals(userId)) {
-                return user;
-            }
-        }
+        return repository.readUser(userId);
 
-        throw new Exception("Таких пользователей нет");
     }
+
+    public List<User> readUserList() {
+        return repository.getAllUsers();
+    }
+
+    public User updateUser(User user) throws Exception {
+        validateUser(user);
+        return repository.updateUser(user);
+
+    }
+
+    public void deleteUser(User user) throws Exception{
+        repository.deleteUser(user);
+    }
+
+    private void validateUser(User user) throws Exception {
+        if (user.getFirstName().isEmpty()) {
+            throw new Exception("Нет имени");
+        }
+        if (user.getLastName().isEmpty()) {
+            throw new Exception("Нет фамилии");
+        }
+        if (user.getPhone().isEmpty()) {
+            throw new Exception("Нет телефона");
+        }
+    }
+
 }

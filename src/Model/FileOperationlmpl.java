@@ -4,11 +4,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileOperationImpl implements FileOperation {
+public class FileOperationlmpl implements FileOperation {
 
     private String fileName;
 
-    public FileOperationImpl(String fileName) {
+    public FileOperationlmpl(String fileName) {
         this.fileName = fileName;
         try (FileWriter writer = new FileWriter(fileName, false)) {
             writer.flush();
